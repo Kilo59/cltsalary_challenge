@@ -1,3 +1,3 @@
-from cltsalary.model import db, Employee
+from cltsalary.model import sql_db, Employee
 
-db.create_tables([Employee])
+sql_db.create_tables([Employee])

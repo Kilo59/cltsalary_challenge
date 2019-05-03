@@ -1,8 +1,12 @@
-from peewee import *
+import peewee
 
-db = SqliteDatabase('cities.sqlite3')
+# from mongoengine import *
+sql_db = peewee.SqliteDatabase("cities.sqlite3")
 
-class Employee(Model):
+
+class Employee(peewee.Model):
+    from peewee import AutoField, CharField, IntegerField
+
     employee_id = AutoField()
 
     name = CharField()
@@ -19,4 +23,4 @@ class Employee(Model):
     FID = IntegerField()
 
     class Meta:
-        database = db
+        database = sql_db
