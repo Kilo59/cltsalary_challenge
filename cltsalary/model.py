@@ -1,26 +1,44 @@
-import peewee
+import peewee as pw
 
-# from mongoengine import *
-sql_db = peewee.SqliteDatabase("cities.sqlite3")
+import mongoengine as me
+
+sql_db = pw.SqliteDatabase("cities.sqlite3")
+me.connect("cities")
 
 
-class Employee(peewee.Model):
+class SQLEmployee(pw.Model):
     from peewee import AutoField, CharField, IntegerField
 
-    employee_id = AutoField()
+    employee_id = pw.AutoField()
 
-    name = CharField()
+    name = pw.CharField()
     # Some of these aren't defined, so let's not make them foreign keys.
-    unit = CharField(null=True)
-    dept = CharField(null=True)
-    job_title = CharField(null=True)
+    unit = pw.CharField(null=True)
+    dept = pw.CharField(null=True)
+    job_title = pw.CharField(null=True)
 
-    salary = IntegerField(null=True)
-    hourly = IntegerField(null=True)
-    full_or_part = CharField(max_length=1)
-    reg_or_temp = CharField(max_length=1)
+    salary = pw.IntegerField(null=True)
+    hourly = pw.IntegerField(null=True)
+    full_or_part = pw.CharField(max_length=1)
+    reg_or_temp = pw.CharField(max_length=1)
 
-    FID = IntegerField()
+    FID = pw.IntegerField()
 
     class Meta:
         database = sql_db
+
+
+class MongoEmployee(me.Document):
+    employee_id = me.SequenceField(collection_name="EmployeeTotal")
+
+    name = me.StringField(required=True)
+    unit = me.StringField(required=False)
+    dept = me.StringField(required=False)
+    job_title = me.StringField(required=False)
+
+    salary = me.IntField(required=False)
+    hourly = me.IntField(required=False)
+    full_or_part = me.StringField(max_length=1, required=True)
+    reg_or_temp = me.StringField(max_length=1, required=True)
+
+    FID = me.IntField()

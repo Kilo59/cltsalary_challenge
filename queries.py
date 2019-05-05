@@ -1,6 +1,7 @@
 from peewee import fn
 
-from cltsalary.model import sql_db, Employee
+from cltsalary.model import sql_db
+from cltsalary.model import SQLEmployee as Employee
 
 
 def main():

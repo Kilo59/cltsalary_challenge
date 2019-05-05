@@ -1,6 +1,6 @@
 import requests
 
-from cltsalary.model import sql_db, Employee
+from cltsalary.model import MongoEmployee as Employee
 
 
 def int_or_null(obj, key):
@@ -10,7 +10,7 @@ def int_or_null(obj, key):
     return int(val)
 
 
-def main():python 
+def main():
     try:
         resp = requests.get(
             "https://opendata.arcgis.com/datasets/54e0445a54c144cda3ce09596f50a134_0.geojson"
@@ -30,7 +30,7 @@ def main():python
         if not emp_props.get("Name"):
             continue
 
-        emp = Employee.create(
+        emp = Employee(
             name=emp_props["Name"],
             unit=emp_props["Unit"],
             dept=emp_props["Dept"],
